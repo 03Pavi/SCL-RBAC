@@ -1,0 +1,201 @@
+openapi: "3.0.0"
+paths:
+  /type:
+    post:
+      operationId: "LeaveTypeController_create"
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLeaveTypeDto"
+      responses:
+        201:
+          description: "Leave Type Added Successfully!"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveType"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+        500:
+          description: "Invalid request body"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+      tags:
+        - "Types"
+    get:
+      operationId: "LeaveTypeController_findAll"
+      parameters: []
+      responses:
+        200:
+          description: "Leave-type fetched successfullyn"
+        204:
+          description: "No leave-type data Found"
+      tags:
+        - "Types"
+  /type/{id}:
+    get:
+      operationId: "LeaveTypeController_findOne"
+      parameters:
+        - name: "id"
+          required: true
+          in: "path"
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "Leave-type fetched successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveType"
+        204:
+          description: "No leave-type data Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+        400:
+          description: "Invalid Leave-type ID"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+      tags:
+        - "Types"
+    put:
+      operationId: "LeaveTypeController_update"
+      parameters:
+        - name: "id"
+          required: true
+          in: "path"
+          schema:
+            type: "string"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLeaveTypeDto"
+      responses:
+        200:
+          description: "leave-type updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveType"
+        204:
+          description: "No Leave-type found with given Id"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+      tags:
+        - "Types"
+    delete:
+      operationId: "LeaveTypeController_remove"
+      parameters:
+        - name: "id"
+          required: true
+          in: "path"
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "Leave type Deleted Successfully!"
+        204:
+          description: "Leave not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+        400:
+          description: "Invalid leave type ID"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllError"
+      tags:
+        - "Types"
+  /user/register:
+    post:
+      operationId: "UserController_create"
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserDto"
+      responses:
+        201:
+          description: ""
+  /user/login:
+    post:
+      operationId: "UserController_check"
+      parameters: []
+      responses:
+        201:
+          description: ""
+info:
+  title: "Leave Management"
+  description: "The Leave Management API description"
+  version: "1.0"
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    CreateLeaveTypeDto:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+      required:
+        - "name"
+    LeaveType:
+      type: "object"
+      properties: {}
+    AllError:
+      type: "object"
+      properties:
+        message:
+          description: "Array of errors"
+          type: "array"
+          items:
+            type: "string"
+        error:
+          type: "string"
+        statusCode:
+          type: "number"
+      required:
+        - "message"
+        - "error"
+        - "statusCode"
+    CreateUserDto:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        role:
+          type: "string"
+        password:
+          type: "string"
+      required:
+        - "name"
+        - "role"
+        - "password"
